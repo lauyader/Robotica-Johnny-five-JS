@@ -1,0 +1,103 @@
+<html>
+	<head>
+		<title></title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<style>
+.btn{
+	width: 200px;
+		padding: 15px 32px;
+			text-align: center;
+}
+</style>
+	</head>
+	<body>
+		<div class="container theme-showcase" role="main">
+			<div class="jumbotron">
+				<h2>Aplicación realizado con Johnny-five, NodeJS, Express y Socket.io</h1>
+				<p>Con este ejemplo vamos a controlar solo un Led conectado al pin  No. 13,  a través de una página web. Pulsando los botones se producirá un evento . Para el experimento  solo existirá tres botones: Encender, Apagar y efecto Blind. </p>
+			</div>
+			<div class="row" align="center">
+				<div class="col-md-12 col-md-12 offset-12">
+					<p> <button id="b_azul" type="button" class="btn btn-lg btn-primary">Encender el Led 13</button>
+					<p> <button id="b_verde" type="button" class="btn btn-lg btn-success">Apagar el Led 13</button>
+					<p> <button id="b_verde2" type="button" class="btn btn-lg btn-danger">Blink </button
+<br>
+					<p>Estatus de Blink:  <input type="text" id="status" value="" placeholder="Estatus del Blink"></p>
+					
+					
+				 
+
+				</div>
+
+			</div>
+			<div class="row">
+				<div class="well">
+					<p> Ejemplo realizado por: <a href="mailto:acontreras@programarfacil.com">Alfonso Contreras</a>
+					<br> <a href="wwww.programarfacil.com">www.programarfacil.com</a>
+					<br> <a href="https://programarfacil.com/blog/controla-tu-arduino-con-una-web-con-firmata-y-javascript">Entrada original</a>
+					<br>
+					<a href="mailto:lauyader2011@gmail.com">Adaptado por: Luis Americo Auyadermont </a>					
+				</div>
+			</div>
+		</div>
+		<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+		<script src="app2.js"></script>
+
+		<script>
+			document.getElementById(“status”).value = “Tutorial Javascript”;
+
+			console.log(datos);
+		</script>
+		<script>
+				var socket = io();
+
+				socket.on('ping', function(data){
+					//document.writeln('Ping:' + data + '<br/>');
+
+					document.getElementById('status').value=data;
+
+					//var datos = data;
+					console.log(data);
+
+					});
+
+				function cambiaAzul(){
+					console.log('Paso Azul')
+					socket.emit('led');
+					console.log(datos);
+
+				}
+				function cambiaVerde(){
+					console.log('Paso Verde')
+					socket.emit('verde');
+				}
+				function cambiaRojo(){
+					socket.emit('rojo');
+				}
+				function stopBlink(){
+					socket.emit('rojo');
+				}
+				function offLed(){
+					socket.emit('off');
+				}
+				function onLed(){
+					socket.emit('on');
+				}
+
+				function blink1(){
+					console.log('Paso');
+					socket.emit('stopled');
+				}
+
+
+				document.getElementById('b_azul').onclick = cambiaAzul;
+				document.getElementById('b_verde').onclick = cambiaVerde;
+				document.getElementById('b_verde2').onclick = blink1;
+				document.getElementById('b_rojo').onclick = cambiaRojo;
+				document.getElementById('b_blink').onclick = blink1;
+				document.getElementById('b_off').onclick = offLed;
+				document.getElementById('b_on').onclick = onLed;
+		</script>
+	</body>
+</html>
